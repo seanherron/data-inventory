@@ -196,7 +196,7 @@ THIRD_PARTY_APPS = (
     'south',
     'grappelli',
     'django.contrib.admin',
-    'taggit',
+    'autocomplete_light'
 )
 
 # Apps specific for this project go here.
@@ -251,3 +251,10 @@ LOGGING = {
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
 WSGI_APPLICATION = '%s.wsgi.application' % SITE_NAME
 ########## END WSGI CONFIGURATION
+
+########## AJAX CONFIGURATION
+# See: https://github.com/crucialfelix/django-ajax-selects
+AJAX_LOOKUP_CHANNELS = {
+    'tags'  : {'model': 'datasets.tag', 'search_field': 'name'},
+}
+########## END AJAX CONFIGURATION

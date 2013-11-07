@@ -15,7 +15,7 @@ from languages.models import Language
 
 class Tag(models.Model):
     name = models.CharField("Tag Name", max_length=50)
-    
+        
     def __unicode__(self):
         return u'%s' % (self.name)
 
