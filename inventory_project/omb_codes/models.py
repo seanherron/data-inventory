@@ -10,6 +10,10 @@ class Bureau_Code(models.Model):
     
     def __unicode__(self):
         return u'%s' % (self.agency)
+        
+    class Meta:
+        verbose_name = "Bureau Code"
+        verbose_name_plural = "Bureau Codes"
     
 class Program_Code(models.Model):
     agency = models.CharField("Agency", max_length=250)
@@ -20,4 +24,5 @@ class Program_Code(models.Model):
         return u'%s' % (self.program_name)
         
     class Meta:
-        verbose_name = ""
+        verbose_name = "Program Code"
+        verbose_name_plural = "Program Codes"
