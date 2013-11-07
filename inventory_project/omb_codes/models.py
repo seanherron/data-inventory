@@ -18,3 +18,6 @@ class Program_Code(models.Model):
     
     def __unicode__(self):
         return u'%s' % (self.program_name)
+        
+    class Meta:
+        verbose_name = ""

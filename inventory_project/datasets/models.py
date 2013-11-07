@@ -30,7 +30,7 @@ class Dataset(models.Model):
     # Common Core Required Fields
     title = models.CharField("Title", help_text="Human-readable name of the asset. Should be in plain English and include sufficient detail to facilitate search and discovery.", max_length=250)
     description = models.TextField("Description", help_text="Human-readable description (e.g., an abstract) with sufficient detail to enable a user to quickly understand whether the asset is of interest.")
-    tags = models.ManyToManyField(Tag, blank=True, null=True)
+    tags = models.ManyToManyField(Tag)
     last_update = models.DateField("Last Update", help_text="Most recent date on which the dataset was changed, updated or modified.")
     publisher = models.ForeignKey(Publisher, help_text="The publishing agency")
     contact = models.ForeignKey(User, help_text="The Contact Person")
@@ -64,7 +64,7 @@ class Dataset(models.Model):
     def __unicode__(self):
         return u'%s' % (self.title)
     
-class RelatedDocuments(models.Model):
+class RelatedDocument(models.Model):
     dataset = models.ForeignKey(Dataset)
     url = models.URLField("URL", blank=True)
     
