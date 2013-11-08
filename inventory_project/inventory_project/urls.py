@@ -1,6 +1,12 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
 
+from tastypie.api import Api
+from omb_codes.api.resources import ProgramCodeResource, BureauCodeResource
+v1_api = Api(api_name='v1')
+v1_api.register(ProgramCodeResource())
+v1_api.register(BureauCodeResource())
+
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -19,7 +25,8 @@ urlpatterns = patterns('',
     (r'^grappelli/', include('grappelli.urls')), # grappelli URLS
     url(r'^admin/', include(admin.site.urls)),
     
-    # AJAX
+    # API
+    (r'^api/', include(v1_api.urls)),
     
     # User Logic URLs
     (r'^login/$', 'django.contrib.auth.views.login'),
@@ -27,4 +34,7 @@ urlpatterns = patterns('',
     
     # Dataset URLs
     url(r'^dataset/', include('datasets.urls')),
+    
+    # OMB Codes URLs
+    url(r'^omb_codes/', include('omb_codes.urls')),
 )
