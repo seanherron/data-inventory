@@ -3,9 +3,6 @@ from django.views.generic import TemplateView
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
-
-from ajax_select import urls as ajax_select_urls
-
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -20,8 +17,9 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     (r'^grappelli/', include('grappelli.urls')), # grappelli URLS
-    (r'^admin/lookups/', include(ajax_select_urls)),
     url(r'^admin/', include(admin.site.urls)),
+    
+    # AJAX
     
     # User Logic URLs
     (r'^login/$', 'django.contrib.auth.views.login'),

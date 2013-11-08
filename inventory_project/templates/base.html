@@ -1,4 +1,6 @@
 {% load staticfiles %}
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -151,7 +153,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="http://cdn.oesmith.co.uk/morris-0.4.3.min.js"></script>
 	<script src="{% static 'js/morris/chart-data-morris.js' %}"></script>
-	<script src="{% static 'js/tablesorter/jquery.tablesorter.js' %}"></script>
+	{% comment %}<script src="{% static 'js/tablesorter/jquery.tablesorter.js' %}"></script>{% endcomment %}
 	<script src="{% static 'js/tablesorter/tables.js' %}"></script>
 
     {% block extra_js %}{% endblock extra_js %}

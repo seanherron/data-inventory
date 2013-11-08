@@ -145,6 +145,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
+    'django.template.loaders.eggs.Loader',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-dirs
@@ -197,7 +198,6 @@ THIRD_PARTY_APPS = (
     'grappelli',
     'django.contrib.admin',
     'crispy_forms',
-    'fancy_formsets',
     
 )
 
