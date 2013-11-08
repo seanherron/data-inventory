@@ -196,7 +196,7 @@ THIRD_PARTY_APPS = (
     'south',
     'grappelli',
     'django.contrib.admin',
-    'ajax_select',
+    'crispy_forms'
 )
 
 # Apps specific for this project go here.
@@ -256,4 +256,9 @@ WSGI_APPLICATION = '%s.wsgi.application' % SITE_NAME
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/'
 LOGOUT_URL = '/logout/'
-########## END AJAX CONFIGURATION
+########## END LOGIN CONFIGURATION
+
+########## CRISPY FORMS CONFIGURATION
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+########## END CRISPY FORMS CONFIGURATION
+
