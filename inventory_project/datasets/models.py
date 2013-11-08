@@ -46,8 +46,8 @@ class Dataset(models.Model):
     endpoint = models.URLField("Endpoint of web service to access dataset.", blank=True)
     license = models.ForeignKey(License, blank=True, null=True)
     spatial = models.TextField(help_text="The range of spatial applicability of a dataset. Could include a spatial region like a bounding box or a named place.", blank=True)
-    temporal_start = models.DateTimeField(help_text="The start of temporal applicability of the dataset", blank=True, null=True)
-    temporal_end = models.DateTimeField(help_text="The end of temporal applicability of the dataset", blank=True, null=True)
+    temporal_start = models.DateField(help_text="The start of temporal applicability of the dataset", blank=True, null=True)
+    temporal_end = models.DateField(help_text="The end of temporal applicability of the dataset", blank=True, null=True)
     
     # Common Core Expanded Fields
     categories = models.ManyToManyField(Category, blank=True, null=True)
