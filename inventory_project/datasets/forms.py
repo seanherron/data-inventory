@@ -6,6 +6,8 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, Field, MultiField, HTML, Div
 from crispy_forms.bootstrap import PrependedText, InlineField
 
+import selectable.forms as selectable
+
 from .models import Dataset, Tag
 from resources.models import Resource
 
@@ -17,8 +19,6 @@ class DatasetForm(forms.ModelForm):
         # It builds a default layout with all its fields
         self.helper = FormHelper(self)
         self.helper.form_tag = False
-        #self.fields['tags'] = forms.ModelChoiceField(Tag.objects.all(),
-        #widget=autocomplete_light.ChoiceWidget('TagAutocomplete'))
         # You can dynamically adjust your layout
         self.helper.layout = Layout(
             Div(
@@ -66,15 +66,12 @@ class DatasetForm(forms.ModelForm):
                     css_class="col-lg-6",
                 ),
                 css_class="row",
-            ),
-            ButtonHolder(
-                Submit('submit', "Submit", css_class="button white")
             )
         )           
     class Meta:
         model = Dataset
-        widgets = autocomplete_light.get_widgets_dict(Dataset)
-
+        widgets = {'tags': forms.CheckboxSelectMultiple, 'categories': forms.CheckboxSelectMultiple, 'languages': forms.CheckboxSelectMultiple}
+        
 class ResourceForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ResourceForm, self).__init__(*args, **kwargs)
@@ -86,7 +83,7 @@ class ResourceForm(forms.ModelForm):
         self.helper.layout = Layout(
             Fieldset("Resources",
                 'url'
-            ),
+            )
         )           
     class Meta:
         model = Resource

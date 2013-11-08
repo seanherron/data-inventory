@@ -198,6 +198,7 @@ THIRD_PARTY_APPS = (
     'grappelli',
     'django.contrib.admin',
     'crispy_forms',
+    'selectable',
     
 )
 
