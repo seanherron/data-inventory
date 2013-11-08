@@ -34,7 +34,7 @@ class Dataset(models.Model):
     last_update = models.DateField("Last Update", help_text="Most recent date on which the dataset was changed, updated or modified.")
     publisher = models.ForeignKey(Publisher, help_text="The publishing agency")
     contact = models.ForeignKey(User, help_text="The Contact Person")
-    unique_identifier = UUIDField(auto=True, unique=True)
+    unique_identifer = UUIDField(auto=True, unique=True)
     public_access_level_choices = Choices(('public', _('Public')), ('restricted', _('Restricted')), ('non_public', _('Non-Public')))
     public_access_level = models.CharField(choices=public_access_level_choices, max_length=50, default="public")
     

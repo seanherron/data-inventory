@@ -3,12 +3,16 @@
 from django.contrib import messages
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.shortcuts import get_object_or_404
 
 from braces.views import LoginRequiredMixin
+from fancy_formsets.views import FormsetsView
+
 
 from .models import Dataset
+from resources.models import Resource
 
-#from .forms import DatasetForm
+from .forms import DatasetForm, ResourceFormSet
 
 class DatasetActionMixin(object):
     
@@ -27,20 +31,55 @@ class DatasetListView(ListView):
     
 class DatasetDetailView(DetailView):
     model = Dataset
-    slug_field = 'unique_identifier'    
+    slug_field = 'unique_identifier'
     
+
 class DatasetCreateView(LoginRequiredMixin, DatasetActionMixin, CreateView):
     model = Dataset
     action = "created"
-    #form_class = DatasetForm
+    form_class = DatasetForm
+    
+    def form_valid(self):
+        # override the ModelFormMixin definition so you don't save twice
+        return HttpResponseRedirect(self.get_success_url())
+
+    def form_invalid(self, form, formset):
+        return self.render_to_response(self.get_context_data(form=form, formset=formset))
+
+    def get(self, request, *args, **kwargs):
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        formset = ResourceFormSet(queryset=Resource.objects.none())
+        return self.render_to_response(self.get_context_data(form=form, formset=formset))
+
+    def post(self, request, *args, **kwargs):
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        formset = ResourceFormSet(request.POST)
+        form_valid = form.is_valid()
+        formset_valid = formset.is_valid()
+        if form_valid and formset_valid:
+            self.object = form.save()
+            resources = formset.save(commit=False)
+            for resource in resources:
+                resource.dataset = self.object
+                resource.save()
+            formset.save_m2m()
+            return self.form_valid()
+        else:
+            return self.form_invalid(form, formset)
+    
     def get_success_url(self):
         return reverse_lazy("dataset_detail", kwargs={'slug': self.object.unique_identifier})
-    
+
 class DatasetUpdateView(LoginRequiredMixin, DatasetActionMixin, UpdateView):
     model = Dataset
     action = "updated"
-    #form_class = DatasetForm
+    form_class = DatasetForm
     slug_field = 'unique_identifier'
+    
     def get_success_url(self):
         return reverse_lazy("dataset_detail", kwargs={'slug': self.object.unique_identifier})
     
