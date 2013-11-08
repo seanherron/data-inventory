@@ -15,4 +15,69 @@
 {% endblock content %}
 
 {% block extra_js %}
+<script>
+$("#div_id_program_code").before('<div id="div_id_agency" class="form-group"><label for="id_agency" class="control-label">Agency</label><div class="controls"><select class="select form-control" id="id_agency" name="agency"></select><p id="hint_id_agency" class="help-block">Select the agency name</p></div></div>');
+
+$.getJSON("/api/v1/programcode/?format=json&limit=0", function(jsonResult) {
+    $('#id_agency').attr('enabled', 'true');
+	$('#id_program_code').empty();
+	var agencies = [];
+    $.each(jsonResult.objects, function(index, value) {
+		if ($.inArray(value.agency, agencies)==-1) {
+			agencies.push(value.agency);
+		}
+    });
+	$.each(agencies, function(){
+        $('#id_agency').append(
+   $("<option></option>").text(this).val(this)
+        );
+	});
+});
+
+$("#id_agency").change(function() {
+	$('#id_program_code').empty();
+	$.getJSON("/api/v1/programcode/?format=json&limit=0&agency=" + encodeURIComponent(this.value), function(jsonResult) {
+	    $('#id_program_code').attr('enabled', 'true');
+	    $.each(jsonResult.objects, function() {
+	        $('#id_program_code').append(
+	            $("<option></option>").text(this.program_name).val(this.id)
+	        );
+	    });
+	});
+});
+
+
+$("#div_id_bureau_code").before('<div id="div_department" class="form-group"><label for="id_department" class="control-label">Department</label><div class="controls"><select class="select form-control" id="id_department" name="department"></select><p id="hint_id_department" class="help-block">Select the department and agency name</p></div></div>');
+
+$.getJSON("/api/v1/bureaucode/?format=json&limit=0", function(jsonResult) {
+    $('#id_bureau_code').attr('enabled', 'true');
+	$('#id_bureau_code').empty();
+	var departments = [];
+    $.each(jsonResult.objects, function(index, value) {
+		if ($.inArray(value.department, departments)==-1) {
+			departments.push(value.department);
+		}
+    });
+	$.each(departments, function(){
+        $('#id_department').append(
+   $("<option></option>").text(this).val(this)
+        );
+	});
+});
+
+$("#id_department").change(function() {
+	$('#id_bureau_code').empty();
+	$.getJSON("/api/v1/bureaucode/?format=json&limit=0&department=" + encodeURIComponent(this.value), function(jsonResult) {
+	    $('#id_bureau_code').attr('enabled', 'true');
+	    $.each(jsonResult.objects, function() {
+	        $('#id_bureau_code').append(
+	            $("<option></option>").text(this.agency).val(this.id)
+	        );
+	    });
+	});
+});
+
+
+  
+</script>
 {% endblock extra_js %}

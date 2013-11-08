@@ -2,10 +2,10 @@ from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
 
 from tastypie.api import Api
-from omb_codes.api.resources import ProgramCodeResource
+from omb_codes.api.resources import ProgramCodeResource, BureauCodeResource
 v1_api = Api(api_name='v1')
 v1_api.register(ProgramCodeResource())
-
+v1_api.register(BureauCodeResource())
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -34,4 +34,7 @@ urlpatterns = patterns('',
     
     # Dataset URLs
     url(r'^dataset/', include('datasets.urls')),
+    
+    # OMB Codes URLs
+    url(r'^omb_codes/', include('omb_codes.urls')),
 )

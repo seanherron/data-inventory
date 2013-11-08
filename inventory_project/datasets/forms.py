@@ -4,9 +4,9 @@ from django.forms.models import modelformset_factory
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, Field, MultiField, HTML, Div
-from crispy_forms.bootstrap import PrependedText
+from crispy_forms.bootstrap import PrependedText, InlineField
 
-from .models import Dataset
+from .models import Dataset, Tag
 from resources.models import Resource
 
 
@@ -17,6 +17,8 @@ class DatasetForm(forms.ModelForm):
         # It builds a default layout with all its fields
         self.helper = FormHelper(self)
         self.helper.form_tag = False
+        #self.fields['tags'] = forms.ModelChoiceField(Tag.objects.all(),
+        #widget=autocomplete_light.ChoiceWidget('TagAutocomplete'))
         # You can dynamically adjust your layout
         self.helper.layout = Layout(
             Div(
@@ -37,8 +39,11 @@ class DatasetForm(forms.ModelForm):
                 Div(
                     Fieldset(
                         "Required-if-Applicable Fields",
-                        'bureau_code',
-                        'program_code',
+                        Div(
+                            'program_code',
+                            'bureau_code',
+                            css_id='federal_agency_codes'
+                        ),
                         'download_url',
                         'endpoint',
                         'license',
@@ -68,6 +73,7 @@ class DatasetForm(forms.ModelForm):
         )           
     class Meta:
         model = Dataset
+        widgets = autocomplete_light.get_widgets_dict(Dataset)
 
 class ResourceForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
