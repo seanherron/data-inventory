@@ -27,6 +27,7 @@ urlpatterns = patterns('',
     
     # API
     (r'^api/', include(v1_api.urls)),
+    (r'^selectable/', include('selectable.urls')),
     
     # User Logic URLs
     (r'^login/$', 'django.contrib.auth.views.login'),
