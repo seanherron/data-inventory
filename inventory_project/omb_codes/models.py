@@ -4,6 +4,7 @@ from django.db import models
 
 class Bureau_Code(models.Model):
     branch = models.CharField("Branch of Government", max_length=250)
+    department = models.CharField("Department", max_length=250, blank=True)
     agency = models.CharField("Agency", max_length=250)
     agency_code = models.CharField("OMB Agency Code", max_length=3)
     bureau_code = models.CharField("OMB Bureau Code", max_length=2)
