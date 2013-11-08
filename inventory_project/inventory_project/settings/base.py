@@ -196,7 +196,7 @@ THIRD_PARTY_APPS = (
     'south',
     'grappelli',
     'django.contrib.admin',
-    'ajax_select',
+    'crispy_forms'
 )
 
 # Apps specific for this project go here.
