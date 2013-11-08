@@ -252,9 +252,8 @@ LOGGING = {
 WSGI_APPLICATION = '%s.wsgi.application' % SITE_NAME
 ########## END WSGI CONFIGURATION
 
-########## AJAX CONFIGURATION
-# See: https://github.com/crucialfelix/django-ajax-selects
-AJAX_LOOKUP_CHANNELS = {
-    'tags'  : {'model': 'datasets.Tag', 'search_field': 'name'},
-}
+########## LOGIN CONFIGURATION
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login/'
+LOGOUT_URL = '/logout/'
 ########## END AJAX CONFIGURATION

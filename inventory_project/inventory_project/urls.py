@@ -22,4 +22,11 @@ urlpatterns = patterns('',
     (r'^grappelli/', include('grappelli.urls')), # grappelli URLS
     (r'^admin/lookups/', include(ajax_select_urls)),
     url(r'^admin/', include(admin.site.urls)),
+    
+    # User Logic URLs
+    (r'^login/$', 'django.contrib.auth.views.login'),
+    (r'^logout/$', 'django.contrib.auth.views.logout'),
+    
+    # Dataset URLs
+    url(r'^dataset/', include('datasets.urls')),
 )
