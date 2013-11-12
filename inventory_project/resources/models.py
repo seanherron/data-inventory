@@ -16,7 +16,9 @@ class Resource(models.Model):
         
     def save(self, *args, **kwargs):
         # We're going to check to see if the file is being replaced, and if so, overwrite the old file rather than keep it laying around.
-        if self.access_url:
-            self.mime_type = mimetypes.guess_type(self.access_url)[0]
+        try:
+            self.mime_type = mimetypes.guess_type(self.url)[0]
+        except:
+            self.mime_type = "Unknown"
         
         super(Resource, self).save(*args, **kwargs)
