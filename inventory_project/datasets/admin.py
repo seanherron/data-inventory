@@ -40,7 +40,7 @@ class ProgramCodeField(forms.ModelChoiceField):
 class DatasetAdminForm(forms.ModelForm):
     bureau_code = AutoCompleteSelectField(lookup_class=BureauCodeLookup)
     program_code = AutoCompleteSelectField(lookup_class=ProgramCodeLookup)
-    contact = AutoCompleteSelectField(lookup_class=UserLookup, allow_new=True)
+    #contact = AutoCompleteSelectField(lookup_class=UserLookup, allow_new=True)
     
     class Meta:
         model = Dataset
