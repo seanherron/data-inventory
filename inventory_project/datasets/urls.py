@@ -1,12 +1,27 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns, url, include
 
-from .views import DatasetListView, DatasetDetailView, DatasetCreateView, DatasetUpdateView, DatasetDeleteView
+from rest_framework import routers
+
+from .views import DatasetListView, DatasetDetailView, DatasetCreateView, DatasetUpdateView, DatasetDeleteView, DataJsonView, DatasetViewSet, TagDetailView
+
+router = routers.DefaultRouter()
+router.register(r'datasets', DatasetViewSet)
 
 urlpatterns = patterns("",
+    url(r'^', include(router.urls)),
+    url(r'^tags/(?P<pk>[0-9]+)/$',
+        TagDetailView.as_view(),
+        name='tag-detail'
+    ),
     url(
         regex=r"^$",
         view=DatasetListView.as_view(),
         name="dataset_list"
+    ),
+    url(
+        regex=r"^data.json",
+        view=DataJsonView.as_view(),
+        name="dataset_json"
     ),
     url(
         regex=r"^create/$",

@@ -7,12 +7,21 @@ from django.shortcuts import get_object_or_404
 
 from braces.views import LoginRequiredMixin
 from fancy_formsets.views import FormsetsView
+from rest_framework import viewsets
+from .serializers import DatasetSerializer
 
 
-from .models import Dataset
+from .models import Dataset, Tag
 from resources.models import Resource
 
 from .forms import DatasetForm, ResourceFormSet
+
+class DatasetViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Dataset.objects.all()
+    serializer_class = DatasetSerializer
 
 class DatasetActionMixin(object):
     
@@ -31,8 +40,10 @@ class DatasetListView(ListView):
     
 class DatasetDetailView(DetailView):
     model = Dataset
-    slug_field = 'unique_identifier'
+    slug_field = 'unique_identifer'
     
+class TagDetailView(DetailView):
+    model = Tag    
 
 class DatasetCreateView(LoginRequiredMixin, DatasetActionMixin, CreateView):
     model = Dataset
@@ -72,20 +83,27 @@ class DatasetCreateView(LoginRequiredMixin, DatasetActionMixin, CreateView):
             return self.form_invalid(form, formset)
     
     def get_success_url(self):
-        return reverse_lazy("dataset_detail", kwargs={'slug': self.object.unique_identifier})
+        return reverse_lazy("dataset_detail", kwargs={'slug': self.object.unique_identifer})
 
 class DatasetUpdateView(LoginRequiredMixin, DatasetActionMixin, UpdateView):
     model = Dataset
     action = "updated"
     form_class = DatasetForm
-    slug_field = 'unique_identifier'
+    slug_field = 'unique_identifer'
     
     def get_success_url(self):
-        return reverse_lazy("dataset_detail", kwargs={'slug': self.object.unique_identifier})
+        return reverse_lazy("dataset_detail", kwargs={'slug': self.object.unique_identifer})
     
 class DatasetDeleteView(LoginRequiredMixin, DatasetActionMixin, DeleteView):
     model = Dataset
     action = "deleted"
-    slug_field = 'unique_identifier'
+    slug_field = 'unique_identifer'
     def get_success_url(self):
         return reverse_lazy("dataset_list")
+
+class DataJsonView(ListView):
+    model = Dataset
+    template_name = "datasets/data.json"
+    def render_to_response(self, context, **response_kwargs):
+        response_kwargs['content_type'] = 'application/json'
+        return super(ListView, self).render_to_response(context, **response_kwargs)

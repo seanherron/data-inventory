@@ -10,7 +10,7 @@ class Bureau_Code(models.Model):
     bureau_code = models.CharField("OMB Bureau Code", max_length=2)
     
     def __unicode__(self):
-        return u'%s' % (self.agency)
+        return u'%s:%s' % (self.agency_code,self.bureau_code)
         
     class Meta:
         verbose_name = "Bureau Code"
@@ -22,7 +22,7 @@ class Program_Code(models.Model):
     program_code = models.CharField(max_length=7)
     
     def __unicode__(self):
-        return u'%s' % (self.program_name)
+        return u'%s' % (self.program_code)
         
     class Meta:
         verbose_name = "Program Code"

@@ -1,0 +1,24 @@
+[
+    {% for dataset in object_list %}
+    {
+    
+    {% if dataset.title %}
+    title: "{{ dataset.title }}",
+    {% endif %}
+    
+    {% if dataset.description %}
+    description: "{{ dataset.description }}",
+    {% endif %}
+    
+    {% if dataset.tags %}
+        tags: [
+            {% for tag in dataset.tags.all %}
+            "{{ tag.name }}",
+            {% endfor %}
+        ]
+        
+    {% endif %}
+    
+    },
+    {% endfor %}
+]

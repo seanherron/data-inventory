@@ -31,7 +31,7 @@ class Dataset(models.Model):
     title = models.CharField("Title", help_text="Human-readable name of the asset. Should be in plain English and include sufficient detail to facilitate search and discovery.", max_length=250)
     description = models.TextField("Description", help_text="Human-readable description (e.g., an abstract) with sufficient detail to enable a user to quickly understand whether the asset is of interest.")
     tags = models.ManyToManyField(Tag)
-    last_update = models.DateField("Last Update", help_text="Most recent date on which the dataset was changed, updated or modified.")
+    last_update = models.DateField("Last Update", help_text="Most recent date on which the dataset was changed, updated or last_update.")
     publisher = models.ForeignKey(Publisher, help_text="The publishing agency")
     contact = models.ForeignKey(User, help_text="The Contact Person")
     unique_identifer = UUIDField(auto=True, unique=True)
@@ -65,7 +65,7 @@ class Dataset(models.Model):
         return u'%s' % (self.title)
     
 class RelatedDocument(models.Model):
-    dataset = models.ForeignKey(Dataset)
+    dataset = models.ForeignKey(Dataset, related_name="references")
     url = models.URLField("URL", blank=True)
     
     def __unicode__(self):
