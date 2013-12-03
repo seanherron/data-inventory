@@ -3,11 +3,6 @@ from django.views.generic import TemplateView
 
 from tastypie.api import Api
 from omb_codes.api.resources import ProgramCodeResource, BureauCodeResource
-from datasets.api.resources import DatasetResource
-#v1_api = Api(api_name='v1')
-#v1_api.register(ProgramCodeResource())
-#v1_api.register(BureauCodeResource())
-#v1_api.register(DatasetResource())
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
