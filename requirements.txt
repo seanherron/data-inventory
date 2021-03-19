@@ -20,7 +20,7 @@ django-suit==0.2.5
 django-taggit==0.10
 django-tastypie==0.10.0
 django-uuidfield==0.4.0
-djangorestframework==2.3.9
+djangorestframework==3.11.2
 docutils==0.11
 gunicorn==0.17.4
 logutils==0.3.3
